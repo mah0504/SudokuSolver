@@ -1,20 +1,20 @@
 public class SudokuSolver implements GameSolver {
 
     // attributes
-    IntegerBoard board;
+    GameBoard board;
     IntegerBoard solution;
     Tree<IntegerBoard> treeDS;
     
+    
 
-    public SudokuSolver( GameBoard board ){
-        this.board=solution; 
+    public SudokuSolver( GameBoard<Integer> board ){
+        this.board= board; 
     }
 
     public boolean solve(){
 
         // rajouter le cas pr les dimensions illegales 
 
-        
         if (!isValidSudoku()) {
             System.out.println("La grille de Sudoku initiale n'est pas valide.");
             return false;
@@ -29,18 +29,18 @@ public class SudokuSolver implements GameSolver {
 
     public boolean isValidPlacement( int row, int col, Integer value ){
         return false;
-        // methode intermediaire pr verif si l'on peut mettre un nbr dans grille qlq selon les regles
+        // methode intermediaire pr verif si l'on peut mettre 
+        // un nbr dans grille qlq selon les regles
     }
 
     // actual solver
     private boolean solveBoard(){
-        return false;
+        return isValidSudoku();
     }
-
 
     public boolean validMiniGrid(){
     
-        return false;
+        return true;
     }
 
     public boolean validHeightTrav(){
@@ -49,11 +49,23 @@ public class SudokuSolver implements GameSolver {
 
 
     public boolean validWidthTrav(){
-        return false; 
+        return true; 
+    }
+
+    public boolean validSize(){
+        System.out.println(board.getWidth());
+        System.out.println(board.getHeight());
+        return board.getHeight() ==board.getWidth()  ;
+
     }
 
     public boolean isValidSudoku(){
-        return validHeightTrav() && validHeightTrav() && validMiniGrid();
+        
+        return validHeightTrav() && validHeightTrav() && validMiniGrid() &&  validSize();
     }
+
+
+
+
 }
 

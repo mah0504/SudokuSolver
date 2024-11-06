@@ -7,12 +7,12 @@ public class IntegerBoard<T> implements GameBoard<T>{
 
     @Override
     public T getCell(int x, int y) throws IndexOutOfBoundsException {
-         return puzzle[x][y];
+        return puzzle[x][y];
     }
 
     @Override
     public void setCell(int x, int y, Object value) throws IndexOutOfBoundsException {
-
+        value= puzzle[x][y] ; //pas sure 
     }
 
     @Override
@@ -27,7 +27,7 @@ public class IntegerBoard<T> implements GameBoard<T>{
 
     @Override
     public void display() {
-
+        
     }
 
 
