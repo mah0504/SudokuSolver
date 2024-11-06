@@ -17,6 +17,7 @@ public interface GameSolver {
      */
     boolean solve();
 
+
     /**
      * Provides a description of the solution.
      *
@@ -24,5 +25,6 @@ public interface GameSolver {
      * @return a human-readable explanation of the solution
      */
     void printSolution();
+
 
 }

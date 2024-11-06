@@ -1,14 +1,13 @@
-public class IntegerBoard implements GameBoard{
-    Integer[][] puzzle;
+public class IntegerBoard<T> implements GameBoard<T>{
+    T[][] puzzle; 
 
-    public IntegerBoard(Integer[][] puzzle){
+    public IntegerBoard(T[][] puzzle){
         this.puzzle=puzzle;
-    
     }
 
     @Override
-    public Object getCell(int x, int y) throws IndexOutOfBoundsException {
-        return puzzle[x][y];
+    public T getCell(int x, int y) throws IndexOutOfBoundsException {
+         return puzzle[x][y];
     }
 
     @Override
