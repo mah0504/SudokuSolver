@@ -6,7 +6,9 @@ private IntegerBoard board;       // Grille de départ
 private IntegerBoard solution;    // Grille de solution
 private Arbre<IntegerBoard> dsTree;  // Arbre contenant les grilles de type IntegerBoard
 
-// Constructeur
+
+
+
 public SudokuSolver(GameBoard<Integer> board) {
     if (board instanceof IntegerBoard) {
         this.board = (IntegerBoard) board;  // Cast en IntegerBoard
@@ -27,10 +29,7 @@ public SudokuSolver(GameBoard<Integer> board) {
         
     }
 
-    // validate an insertion in the board
-
-
-
+   
 
     public boolean solve(){
 
@@ -72,9 +71,9 @@ public SudokuSolver(GameBoard<Integer> board) {
         return true; 
     }
 
-    public boolean validSize(){
-        System.out.println(board.getWidth());
-        System.out.println(board.getHeight());
+     public boolean validSize(){
+    //     System.out.println(board.getWidth());
+    //     System.out.println(board.getHeight());
         return board.getHeight() ==board.getWidth()  ;
 
     }
