@@ -16,7 +16,7 @@
 	System.out.println( "*** Test Case 1 ***" );
         Integer[][] puzzle = {
             {5, 3, 0, 0, 7, 0, 0, 0, 0},
-            {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            {6, 0, 3, 1, 9, 5, 0, 0, 0},
             {0, 9, 8, 0, 0, 0, 0, 6, 0},
             {8, 0, 0, 0, 6, 0, 0, 0, 3},
             {4, 0, 0, 8, 0, 3, 0, 0, 1},
@@ -95,10 +95,10 @@
     public void testCase5() {
 	System.out.println( "*** Test Case 5 ***:" );
         Integer[][] puzzle = {
-            {1, 2, 3, 4},
-            {3, 4, 0, 0},
+            {6, 1, 1, 4},
+            {3, 0, 0, 0},
             {0, 0, 0, 0},
-            {4, 3, 2, 1}
+            {4, 2, 2, 1}
         };
         GameBoard board = new IntegerBoard<>( puzzle );
         GameSolver solver = new SudokuSolver( board );
@@ -109,10 +109,10 @@
 
     public static void main( String[] args ) {
         Main test = new Main();
-       test.testCase1();
+      // test.testCase1();
       //  test.testCase2();
       //  test.testCase3();
       //  test.testCase4();
-	   // test.testCase5();
+	    test.testCase5();
     }
 }
