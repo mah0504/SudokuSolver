@@ -27,7 +27,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isEmpty() { return this.size() == 0; }
 
-    // return the number of levels separating Position p from the root (depth of p)                                                                                
+    //    return the number of levels separating Position p from the root (depth of p)                                                                                
     //    executes in O( depth of p + 1 ); O(n) in the worst case
     public int depth( Position<E> p ) {
         if( this.isRoot( p ) ) return 0;

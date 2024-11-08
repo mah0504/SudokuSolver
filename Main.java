@@ -8,7 +8,9 @@
  * @since       1.0 (22 October 2024)
  */
 
-public class Main {
+
+ public class Main {
+
 
     public void testCase1() {
 	System.out.println( "*** Test Case 1 ***" );
@@ -23,12 +25,12 @@ public class Main {
             {0, 0, 0, 4, 1, 9, 0, 0, 5},
             {0, 0, 0, 0, 8, 0, 0, 7, 9}
         };
-        GameBoard<Integer> board = new IntegerBoard<>( puzzle );
+        GameBoard<Integer> board = new IntegerBoard( puzzle );
         GameSolver solver = new SudokuSolver( board );
 	solver.solve();
-
-	// solver.printSolution();
+	solver.printSolution();
     }
+
 
     public void testCase2() {
 	System.out.println( "*** Test Case 2 ***" );
@@ -43,11 +45,12 @@ public class Main {
             {0, 0, 0, 5, 0, 0, 2, 0, 9},
             {0, 8, 0, 0, 0, 0, 0, 0, 0}
         };
-        GameBoard<Integer> board = new IntegerBoard<>( puzzle );
+        GameBoard<Integer> board = new IntegerBoard( puzzle );
         GameSolver solver = new SudokuSolver( board );
 	solver.solve();
 	solver.printSolution();
     }
+
 
     public void testCase3() {
 	System.out.println( "*** Test Case 3 ***" );
@@ -62,11 +65,12 @@ public class Main {
 	    {6, 8, 4, 2, 0, 7, 5, 0, 0},
 	    {7, 9, 1, 0, 5, 0, 6, 0, 0}
 	};
-        GameBoard<Integer> board = new IntegerBoard<>( puzzle );
+        GameBoard<Integer> board = new IntegerBoard( puzzle );
         GameSolver solver = new SudokuSolver( board );
 	solver.solve();
 	solver.printSolution();
     }
+
 
     public void testCase4() {
 	System.out.println( "*** Test Case 4 ***" );
@@ -81,11 +85,12 @@ public class Main {
             {0, 0, 0, 0, 7, 0, 0, 0, 0},
             {0, 0, 8, 0, 0, 0, 0, 0, 0}
         };
-        GameBoard<Integer> board = new IntegerBoard<>( puzzle );
+        GameBoard board = new IntegerBoard( puzzle );
         GameSolver solver = new SudokuSolver( board );
 	solver.solve();
 	solver.printSolution();
     }
+
 
     public void testCase5() {
 	System.out.println( "*** Test Case 5 ***:" );
@@ -95,35 +100,19 @@ public class Main {
             {0, 0, 0, 0},
             {4, 3, 2, 1}
         };
-        GameBoard<Integer> board = new IntegerBoard<>( puzzle );
+        GameBoard board = new IntegerBoard<>( puzzle );
         GameSolver solver = new SudokuSolver( board );
 	solver.solve();
 	solver.printSolution();
     }
 
 
-    public void testCase6() {
-        System.out.println( "*** Test Case 5 ***:" );
-            Integer[][] puzzle = {
-                {1, 2, 3},
-                {3, 4, 0},
-                {0, 0, 0},
-                {4, 3, 2}
-            };
-            GameBoard<Integer> board = new IntegerBoard<>( puzzle );
-            GameSolver solver = new SudokuSolver( board );
-        solver.solve();
-   //     solver.printSolution();
-    }
-
     public static void main( String[] args ) {
         Main test = new Main();
-        test.testCase1();
-    //     test.testCase2();
-    //     test.testCase3();
-    //     test.testCase4();
-	//     test.testCase5();
-         test.testCase6();
-
+       test.testCase1();
+      //  test.testCase2();
+      //  test.testCase3();
+      //  test.testCase4();
+	   // test.testCase5();
     }
 }
