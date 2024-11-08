@@ -14,9 +14,10 @@
 
     public void testCase1() {
 	System.out.println( "*** Test Case 1 ***" );
+    // grid dim fct pas 
         Integer[][] puzzle = {
             {5, 3, 0, 0, 7, 0, 0, 0, 0},
-            {6, 0, 3, 1, 9, 5, 0, 0, 0},
+            {6, 0, 1, 1, 9, 5, 0, 0, 0},
             {0, 9, 8, 0, 0, 0, 0, 6, 0},
             {8, 0, 0, 0, 6, 0, 0, 0, 3},
             {4, 0, 0, 8, 0, 3, 0, 0, 1},
@@ -109,10 +110,10 @@
 
     public static void main( String[] args ) {
         Main test = new Main();
-      // test.testCase1();
+       test.testCase1();
       //  test.testCase2();
       //  test.testCase3();
       //  test.testCase4();
-	    test.testCase5();
+	   // test.testCase5();
     }
 }

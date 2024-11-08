@@ -48,6 +48,8 @@ public SudokuSolver(GameBoard<Integer> board) {
 
     public boolean isValidPlacement( int row, int col, Integer value ){
         return false;
+        // valid placement pr verifier valid height etc 
+        // si false on retourne au niveau sup de l'arbre 
 
         // methode intermediaire pr verif si l'on peut mettre 
         // un nbr dans grille qlq selon les regles
@@ -61,25 +63,10 @@ public SudokuSolver(GameBoard<Integer> board) {
     // faire en sorte que ca fonctionne pr ttes les minigrid pas juste la premiere -> modulo ? 
     public boolean validMiniGrid(GameBoard<Integer> board){
 
-        List<Integer> lst = new ArrayList<>();
+        // brute force puis essayer de loop tbh ? 
 
-        for ( int i =0; i<3 ; i++){
-
-// modifier pr cas general apres ou la grid = tiers dim du jeu  -> sqrt ? 
-
-            for ( int j=0; j< 3 ; j++){
-
-                if ( ! lst.contains(board.getCell(i, j)) ){
-                    // lst.add( board.getCell(i, j));
-            } 
-            System.out.print(board.getCell(i, j));
-            return false;
-
-        }
+        return false;
     }
-    return true ;
-
-}
 
     public boolean validHeightTrav(GameBoard<Integer> board){
         List<Integer> lst = new ArrayList<>();
@@ -153,17 +140,15 @@ public SudokuSolver(GameBoard<Integer> board) {
     }
 
     public boolean isValidSudoku(){
-       // System.out.println( validMiniGrid(board)); 
+        System.out.println( validMiniGrid(board)); 
 
-
-      
     //    System.err.println(validHeightTrav(board));
     //    System.out.println(validWidthTrav(board));
 
-        return validWidthTrav(board)
-        && validHeightTrav(board);
+         return  //validWidthTrav(board)
+        // && validHeightTrav(board);
 
-        // && validMiniGrid(board);
+     validMiniGrid(board);
         // &&  validSize()
     }
 
