@@ -1,70 +1,59 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SudokuSolver implements GameSolver {
-// Attributs
-private IntegerBoard board;       // Grille de départ
-private IntegerBoard solution;    // Grille de solution
-private Arbre<IntegerBoard> dsTree;  // Arbre contenant les grilles de type IntegerBoard
+    // Attributs
+    private IntegerBoard board;       
+    private IntegerBoard solution;    // Grille de solution
+    private LinkedTree dsTree;  // Arbre contenant les grilles de type IntegerBoard
 
 
 
+    public SudokuSolver(GameBoard<Integer> board) {
+        // if (board instanceof IntegerBoard) {
 
-public SudokuSolver(GameBoard<Integer> board) {
-    if (board instanceof IntegerBoard) {
-        this.board = (IntegerBoard) board;  // Cast en IntegerBoard
-    } else {
-        throw new IllegalArgumentException("Le board doit être de type IntegerBoard");
+
+            this.board = (IntegerBoard) board;  // Cast en IntegerBoard
+            this.dsTree = new LinkedTree(this.board);  
+            
+    
+            
+        // } else {
+        //     throw new IllegalArgumentException("Le board doit être de type IntegerBoard");
+        // }
     }
-    this.solution = null;  // Initialisation de la grille de solution si nécessaire
-    this.dsTree = new Arbre<>(new Noeud(this.board));  // Initialise l’arbre avec le noeud de la grille de départ
-}
+    
 
+    // Méthode pour afficher la solution
     public void printSolution(){
-
-
-        // Récupère la racine de l'arbre et affiche la grille
-        IntegerBoard rootBoard = dsTree.getRacine().getBoard();
+    
+        IntegerBoard rootBoard = dsTree.root().getElement();
         System.out.println("Grille de la racine de l'arbre:");
-//        rootBoard.display();
-        
+        rootBoard.display();
+
     }
 
-   
-
+    // Méthode pour résoudre la grille
     public boolean solve(){
-
-        // rajouter le cas pr les dimensions illegales 
-
         if (!isValidSudoku()) {
-          //  System.out.println("La grille de Sudoku initiale n'est pas valide.");
+            // System.out.println("La grille de Sudoku initiale n'est pas valide.");
             return false;
         }
         return solveBoard();
     }
 
-
-
-    public boolean isValidPlacement( int row, int col, Integer value ){
+    // Vérifie si une valeur est valide pour un placement
+    public boolean isValidPlacement(int row, int col, Integer value){
         return false;
-        // valid placement pr verifier valid height etc 
-        // si false on retourne au niveau sup de l'arbre 
-
-        // methode intermediaire pr verif si l'on peut mettre 
-        // un nbr dans grille qlq selon les regles
     }
 
-    // actual solver
     private boolean solveBoard(){
         return isValidSudoku();
     }
 
-    // faire en sorte que ca fonctionne pr ttes les minigrid pas juste la premiere -> modulo ? 
     public boolean validMiniGrid(GameBoard<Integer> board){
-
-        // brute force puis essayer de loop tbh ? 
-
         return false;
     }
 
@@ -101,7 +90,6 @@ public SudokuSolver(GameBoard<Integer> board) {
         return true;
     }
 
-// fct correctement 
 
     public boolean validWidthTrav(GameBoard<Integer> board){
         List<Integer> lst = new ArrayList<>();
@@ -132,28 +120,14 @@ public SudokuSolver(GameBoard<Integer> board) {
 
     }
 
-     public boolean validSize(){
-    //     System.out.println(board.getWidth());
-    //     System.out.println(board.getHeight());
-        return board.getHeight() ==board.getWidth()  ;
 
+    // Vérifie si la grille a la taille correcte
+    public boolean validSize(){
+        return board.getHeight() == board.getWidth();
     }
 
+    // Vérifie si la grille de Sudoku est valide
     public boolean isValidSudoku(){
-        System.out.println( validMiniGrid(board)); 
-
-    //    System.err.println(validHeightTrav(board));
-    //    System.out.println(validWidthTrav(board));
-
-         return  //validWidthTrav(board)
-        // && validHeightTrav(board);
-
-     validMiniGrid(board);
-        // &&  validSize()
+        return validMiniGrid(board) && validHeightTrav(board) && validWidthTrav(board) && validSize();
     }
-
-
-
-
-
 }
