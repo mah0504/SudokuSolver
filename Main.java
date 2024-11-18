@@ -1,11 +1,6 @@
 /**
  * Sudoku application (Main class)
  *
- * @author      Morteza Mahdiani (for TP1-IFT2015-A24)
- * @author      modified by Francois Major, on 24.10.25)
- *              
- * @version     1.1 (25 october 2024)
- * @since       1.0 (22 October 2024)
  */
 
 

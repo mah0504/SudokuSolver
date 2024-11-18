@@ -10,7 +10,9 @@ public class SudokuSolver implements GameSolver {
     private LinkedTree dsTree;  // Arbre contenant les grilles de type IntegerBoard
 
 
+    // 
 
+    
     public SudokuSolver(GameBoard<Integer> board) {
         // if (board instanceof IntegerBoard) {
 
@@ -53,9 +55,38 @@ public class SudokuSolver implements GameSolver {
         return isValidSudoku();
     }
 
-    public boolean validMiniGrid(GameBoard<Integer> board){
-        return false;
+
+    public boolean validMiniGrid(GameBoard<Integer> board) {
+
+        // iterer entre chaque sous grille 
+        for (int grid = 0; grid < 9; grid++) {
+
+            // reinitialiser le tab de verif apres chaque sous grille 
+            boolean[] seen = new boolean[9]; // ttes les valeurs possibles de 1 à 9
+
+            for (int cell = 0; cell < 9; cell++) {
+
+                // Calcul des indices pour chaque sous-grille
+                int row = 3 * (grid / 3) + cell / 3;
+                int col = 3 * (grid % 3) + cell % 3;
+    
+                int current = board.getCell(row, col); 
+
+                if (current != 0) { 
+                    int num = current - 1;
+
+                    // chaque index du tab stocké correspond à une valeur vue 
+
+                    if (seen[num]) {
+                        return false; // Doublon détecté
+                    }
+                    seen[num] = true;
+                }
+            }
+        }
+        return true;
     }
+    
 
     public boolean validHeightTrav(GameBoard<Integer> board){
         List<Integer> lst = new ArrayList<>();
@@ -130,4 +161,37 @@ public class SudokuSolver implements GameSolver {
     public boolean isValidSudoku(){
         return validMiniGrid(board) && validHeightTrav(board) && validWidthTrav(board) && validSize();
     }
+
+
+
+    public static void main(String[] args) {
+        System.out.println("*** Test Case 5 ***:");
+        
+        Integer[][] puzzle = {
+            {5, 3, 0, 0, 7, 0, 0, 0, 0},
+            {6, 0, 1, 1, 9, 5, 0, 0, 0},
+            {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        };
+        
+        // Création de la grille et du résolveur
+        GameBoard<Integer> board = new IntegerBoard<>(puzzle);
+        SudokuSolver solver = new SudokuSolver(board);
+        
+        // Test de validité de la sous-grille
+        boolean isValidMiniGrid = solver.validMiniGrid(board);
+        System.out.println("La sous-grille est-elle valide ? " + isValidMiniGrid);
+        
+        // Résolution du puzzle
+        solver.solve();
+        
+        // Affichage de la solution
+        solver.printSolution();
+    }
+    
 }
