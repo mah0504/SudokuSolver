@@ -11,9 +11,8 @@ public class IntegerBoard<T> implements GameBoard<T>{
 
     
     public IntegerBoard(T[][] puzzle){
-        this.puzzle=puzzle;
+        this.puzzle= puzzle;
     }
-
     
     @Override
     public T getCell(int x, int y) throws IndexOutOfBoundsException {
@@ -21,8 +20,8 @@ public class IntegerBoard<T> implements GameBoard<T>{
     }
 
     @Override
-    public void setCell(int x, int y, Object value) throws IndexOutOfBoundsException {
-        value= puzzle[x][y] ; //pas sure 
+    public void setCell(int x, int y, T value) throws IndexOutOfBoundsException {
+        puzzle[x][y]=value ; //pas sure 
     }
 
     @Override

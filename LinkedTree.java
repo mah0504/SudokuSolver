@@ -16,6 +16,7 @@ public class LinkedTree implements Tree<IntegerBoard> {
 
     @Override
     public Position<IntegerBoard> parent(Position<IntegerBoard> p) {
+
         return ((Node) p).getParent();
     }
 
@@ -87,7 +88,17 @@ public class LinkedTree implements Tree<IntegerBoard> {
         for (Node child : node.getChildren()) {
             preorderSubtree(child, snapshot);
         }
-    }
+    } 
+
+
+    public Position addChild(Position parent, IntegerBoard board) {
+        
+        Node parentNode = (Node) parent; // faux ? 
+        Node childNode = new Node(board, parentNode);
+        parentNode.getChildren().add(childNode); // Ajoute le nœud enfant au parent
+        return childNode;
+
+    } 
 
     private class ElementIterator implements Iterator<IntegerBoard> {
         Iterator<Position<IntegerBoard>> posIterator = positions().iterator();
@@ -102,4 +113,10 @@ public class LinkedTree implements Tree<IntegerBoard> {
             return posIterator.next().getElement();
         }
     }
+   
+   
+   
+   
+   
+
 }
