@@ -38,14 +38,14 @@ public class SudokuSolver implements GameSolver {
         System.out.println("Grille de la racine de l'arbre:");
         rootBoard.display();
         
-        System.out.println( " Les noeufs enfants "); 
 
-        // for (Position<IntegerBoard> child : dsTree.children(dsTree.root()) ) {
-        //     IntegerBoard childBoard = child.getElement();
-        //     System.out.println("Grille enfant:");
-        //     childBoard.display();
-        //     System.out.println(); // Ligne vide entre les grilles pour lisibilité
-        // }
+        Iterable<Position<IntegerBoard>> children = dsTree.children(dsTree.root());
+        for (Position<IntegerBoard> child : children) {
+            IntegerBoard childBoard = child.getElement();
+            System.out.println("Grille enfant:");
+            childBoard.display();
+            System.out.println(); // Ligne vide entre les grilles pour lisibilité
+        }
 
         
 
@@ -53,6 +53,7 @@ public class SudokuSolver implements GameSolver {
 
     // Méthode pour résoudre la grille
     public boolean solve(){
+        
     
         List<Integer> lst = new ArrayList<>();
 
@@ -62,7 +63,8 @@ public class SudokuSolver implements GameSolver {
             return false;
         }
         else {
-            System.out.println("valid fr fr "); 
+            System.out.println("valid fr fr ");  
+
             for( int i =0 ; i<board.getWidth(); i++){
                 for ( int j = 0 ;j<board.getHeight();j++){
                     
@@ -77,23 +79,22 @@ public class SudokuSolver implements GameSolver {
 
                         for(int l =1 ; l<10; l++){
     
-                            board.setCell(i, j, l); // on change ? 
-    
                            if ( isValidPlacement(i,j,l) ) { 
-                            lst.add(l); 
-    
-                            // dsTree.addChild(dsTree.root(), board); 
-    
+                            lst.add(l);
+                            IntegerBoard board1 = board.copy();
+                            board1.setCell(i, j, l);
+                            
+                            // bsn d'initialiser la nvl copy a chaque fois ? 
+
+                            // gneraliser pr prendre en compte tous les nv 
+                            dsTree.addChild(dsTree.root(), board1); 
+                            
                             // cree enfant avec nvl grid 
-                            // bla bla bla bla 
-                           } else {
-    
-                            board.setCell(i, j,0 );
                            }
-    
-    
+
                         }
                         // System.out.println(lst); 
+                        break;
 
                     } else {
                         continue; 

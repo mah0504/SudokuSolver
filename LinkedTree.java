@@ -100,6 +100,25 @@ public class LinkedTree implements Tree<IntegerBoard> {
 
     } 
 
+
+    
+
+
+    // public void printChildren(Position<IntegerBoard> parent) {
+    //     Iterable<Position<IntegerBoard>> children = children(parent); // Récupère les enfants du nœud parent
+    //     if (!children.iterator().hasNext()) {
+    //         System.out.println("Aucun enfant pour ce nœud.");
+    //         return;
+    //     }
+    //     System.out.println("Enfants du nœud :");
+    //     for (Position<IntegerBoard> child : children) {
+    //         System.out.println(child.getElement()); // Imprime la grille associée à chaque enfant
+    //     }
+    // }
+
+    
+
+
     private class ElementIterator implements Iterator<IntegerBoard> {
         Iterator<Position<IntegerBoard>> posIterator = positions().iterator();
 
