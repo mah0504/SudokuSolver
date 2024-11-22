@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class SudokuSolver implements GameSolver {
     // Attributs
@@ -23,7 +25,6 @@ public class SudokuSolver implements GameSolver {
 
             this.board = (IntegerBoard) board;  // Cast en IntegerBoard
             this.dsTree = new LinkedTree(this.board);  
-            
     
             
         // } else {
@@ -51,67 +52,96 @@ public class SudokuSolver implements GameSolver {
 
     }
 
-    // Méthode pour résoudre la grille
-    public boolean solve(){
-        
+    public boolean solve() {
+        // grille parent -> celle qu'on manip 
+        // a chaque increm de profondeur on update la grille parent 
     
-        List<Integer> lst = new ArrayList<>();
+
+        Queue<Node> queue = new LinkedList<>();
+        List<Integer> lst=  new ArrayList<>();
+
+        Node root = new Node(board, null);  
+        queue.add(root);  
+    
+        // while (!queue.isEmpty()) {
+            Node currentNode = queue.poll(); 
+            IntegerBoard currentBoard = currentNode.getElement();  // Récupère la grille du nœud actuel
+    
+            if (isComplete(currentBoard)) {
+                System.out.println("Solution...");
+                return true;
+            }
+            
+        // }
 
         if (!isValidSudoku()) {
-            System.out.println("La grille de Sudoku initiale n'est pas valide.");
 
+            System.out.println("La grille de Sudoku initiale n'est pas valide...");
             return false;
-        }
-        else {
-            System.out.println("valid fr fr ");  
+        }else {
 
-            for( int i =0 ; i<board.getWidth(); i++){
-                for ( int j = 0 ;j<board.getHeight();j++){
-                    
-                    // System.out.println( board.getCell(i, j));
-                    // System.out.println(board.getCell(i, j).equals(0) );
-    
-    
-                    if ( board.getCell(i, j).equals(0) ){
+            // width puis height ?
+            for (int i = 0; i < board.getHeight(); i++) {
+                for (int j = 0; j < board.getWidth(); j++) {
+                    if (board.getCell(i, j).equals(0)) { 
                         lst.clear();
-
-                        // possib  de 1 a 10
 
                         for(int l =1 ; l<10; l++){
     
                            if ( isValidPlacement(i,j,l) ) { 
+
                             lst.add(l);
-                            IntegerBoard board1 = board.copy();
-                            board1.setCell(i, j, l);
+                            IntegerBoard grilleEnfant = board.copy(); // nvl instnciation 
+
+                            grilleEnfant.setCell(i, j, l);  
+                            
                             
                             // bsn d'initialiser la nvl copy a chaque fois ? 
-
-                            // gneraliser pr prendre en compte tous les nv 
-                            dsTree.addChild(dsTree.root(), board1); 
                             
-                            // cree enfant avec nvl grid 
-                           }
+                            // ref vers parent + la grille rep
+                            Node childNode = new Node(grilleEnfant, currentNode);
 
-                        }
-                        // System.out.println(lst); 
-                        break;
+                            dsTree.addChild(grilleEnfant, currentNode);  
+                            // ajout du noeud comme enfant du current 
+                            
 
-                    } else {
-                        continue; 
-                    } 
-                    
-                    // System.out.println(lst); 
-    
-                } 
+                            queue.add(childNode); // ajout noeud enfant 
+                            
+                           }   
+                    }
+                }
             }
+            
 
         }
+    
+        // queue is empty -> plus d'enfants a ajouter 
+        // passer au noeud de profobdeur n-1 suivant OU s'il y en a plus passer
+        // au neoud de pronfondeur n le + a gauche possible suivant 
+        // traverse preorder
+        
+    
+        System.out.println("Aucune solution trouvée.");
+        return false;
+    }
 
-        return solveBoard();
+}
+
+    private boolean isComplete(IntegerBoard board) {
+        // Vérifiez si la grille est entièrement remplie et valide
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getHeight(); j++) {
+                if (board.getCell(i, j).equals(0) ) {
+                    return false; // Une case vide reste
+                }
+            }
+        }
+        return true;
     }
 
 
 
+    // marche correctement :)
 public boolean isValidPlacement(int x, int y, Integer value) {
     // Vérifier la ligne
     for (int j = 0; j < board.getWidth(); j++) {
@@ -143,124 +173,48 @@ public boolean isValidPlacement(int x, int y, Integer value) {
 
 
 
-        // System.out.println("valid mini grid " +validMiniGrid(board)); 
-        // System.out.println("valid height trav"+  validHeightTrav(board) );
-        // System.out.println( "valid width trav"+ validWidthTrav(board));
-
         // return validMiniGrid(board) && validHeightTrav(board) &&  validWidthTrav(board);
     private boolean solveBoard(){
         return isValidSudoku();
     }
 
 
-    // public boolean validMiniGrid(GameBoard<Integer> board) {
-
-    //     // iterer entre chaque sous grille 
-    //     for (int grid = 0; grid < 9; grid++) {
-
-    //         // reinitialiser le tab de verif apres chaque sous grille 
-    //         boolean[] seen = new boolean[9]; // ttes les valeurs possibles de 1 à 9
-
-    //         for (int cell = 0; cell < 9; cell++) {
-
-    //             // Calcul des indices pour chaque sous-grille
-    //             int row = 3 * (grid / 3) + cell / 3;
-    //             int col = 3 * (grid % 3) + cell % 3;
-    
-    //             int current = board.getCell(row, col); 
-
-    //             if (current != 0) { 
-    //                 int num = current - 1;
-
-    //                 // chaque index du tab stocké correspond à une valeur vue 
-
-    //                 if (seen[num]) {
-    //                     return false; // Doublon détecté
-    //                 }
-    //                 seen[num] = true;
-    //             }
-    //         }
-    //     }
-    //     return true;
-    // }
-    
-
-    // public boolean validHeightTrav(GameBoard<Integer> board){
-    //     List<Integer> lst = new ArrayList<>();
-
-    //     // System.out.println(board.getHeight());
-    //     // System.out.println(board.getWidth());
-
-    //     for ( int i =0; i <board.getHeight(); i++){
-    //         for ( int j=0; j<board.getWidth();j++){
-
-    //              if ( !( lst.contains(board.getCell(i, j))) && board.getCell(i, j)!=0 ){
-
-    //                // System.out.println(board.getCell(j, i));
-
-    //                  lst.add( board.getCell(j, i));
-
-    //        } else if ( board.getCell(i, j)==0){
-    //         // lst.add( board.getCell(j, i));
-    //         continue;
-
-    //        } 
-    //        else {
-    //         // System.out.println(lst);
-    //         // System.out.println(" element invalide est height: " +board.getCell(j, i));
-    //         return false; 
-    //        }
-
-    //     }
-    //     lst.clear() ;
-
-    //     }
-        
-    //     return true;
-    // }
+ 
 
 
-    // public boolean validWidthTrav(GameBoard<Integer> board){
-    //     List<Integer> lst = new ArrayList<>();
+    public void displayPossibleValues() {
 
-    //     for ( int i =0 ; i<board.getWidth();i++){
-    //         for( int j=0; j<board.getHeight(); j++){
-    //             // System.out.println("element" + board.getCell(i, j));
-                
-    //             if ( !( lst.contains(board.getCell(i, j)))  && board.getCell(i, j)!= 0 ){
-    //                 lst.add( board.getCell(i, j));
-    //                 // System.out.println(lst);
+        List<List<Integer>> possibleValuesForEachCell = new ArrayList<>();
 
-    //             } else if ( board.getCell(i, j)==0){
-    //             //  lst.add( board.getCell(i, j));
-    //                 continue;
-     
-    //             } 
-    //             else {
-    //             //   System.out.println(lst);
-    //             //   System.out.println(" element invalide est : " +board.getCell(i, j));
-    //              return false; 
-    //             }
-     
-    //          }
-    //          lst.clear() ;
-     
-    //          }
-    //          return true;
+        // Parcours de la grille
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getHeight(); j++) {
+                if (board.getCell(i, j).equals(0)) { // Si la case est vide
+                    List<Integer> possibleValues = new ArrayList<>();
+                    
+                    for (int value = 1; value <= 9; value++) {
+                        if (isValidPlacement(i, j, value)) {
+                            possibleValues.add(value);
+                        }
+                    }
 
-    // }
+                    possibleValuesForEachCell.add(possibleValues);
 
+                    // Affichage des valeurs possibles pour cette case
+                    System.out.println("Case (" + i + ", " + j + ") - Valeurs possibles : " + possibleValues);
+                }
+            }
+        }
 
-    // Vérifie si la grille a la taille correcte
-    public boolean validSize(){
-        return board.getHeight() == board.getWidth();
+       
     }
+
+
 
     // Vérifie si la grille de Sudoku est valide
 
-
     public boolean isValidSudoku() {
-        // Parcours de la grille
+
         for (int x = 0; x < board.getHeight(); x++) {
             for (int y = 0; y < board.getWidth(); y++) {
 
@@ -276,30 +230,18 @@ public boolean isValidPlacement(int x, int y, Integer value) {
     
                 // Vérifier si l'ajout de cette valeur induirait une contradiction
                 boolean isValid = isValidPlacement(x, y, originalValue);
-                // System.out.print("Checking validity for " + originalValue + ": " + isValid);
     
                 // Restaurer la valeur originale
                 board.setCell(x, y, originalValue);
         
                 if (!isValid) {
-                    return false; // Contradiction trouvée
+                    return false; 
                 }
             }
         }
         return true; // La grille est valide
     }
     
-
-        // System.out.println("valid mini grid " +validMiniGrid(board)); 
-        // System.out.println("valid height trav"+  validHeightTrav(board) );
-        // System.out.println( "valid width trav"+ validWidthTrav(board));
-
-        // return validMiniGrid(board) && validHeightTrav(board) &&  validWidthTrav(board);
-
-
-        // la logique relies on enlever l,elem deja place et voir si essayer de le remettre 
-        // nous induit en contradiction 
-
         
 
     // methode main intermediaire car flm autre fichier each time 
@@ -315,9 +257,35 @@ public boolean isValidPlacement(int x, int y, Integer value) {
             {7, 0, 0, 0, 2, 0, 0, 0, 6},
             {0, 6, 0, 0, 0, 0, 2, 8, 0},
             {0, 0, 0, 4, 1, 9, 0, 0, 5},
-            {0, 0, 0, 0, 8, 0, 0, 7, 9}
+            {0, 0, 0, 0, 8, 0, 0, 7, 9} 
         };
 
+
+            
+    Integer[][] p= {
+        {5, 1, 6, 8, 4, 9, 7, 3, 2},
+	    {3, 0, 7, 6, 0, 5, 0, 0, 0},
+	    {8, 0, 9, 7, 0, 0, 0, 6, 5},
+	    {1, 3, 5, 0, 6, 0, 9, 0, 7},
+	    {4, 7, 2, 5, 9, 1, 0, 0, 6},
+	    {9, 6, 8, 3, 7, 0, 0, 5, 0},
+	    {2, 5, 3, 1, 8, 6, 0, 7, 4},
+	    {6, 8, 4, 2, 0, 7, 5, 0, 0},
+	    {7, 9, 1, 0, 5, 0, 6, 0, 0}};
+
+        Integer[][] pozz = {
+            {1,3,0,0,0,2,0,7,0},
+            {0,0,4,0,0,0,0,0,0},
+            {8,0,0,4,0,0,2,0,1},
+            {0,4,2,0,0,0,0,0,0},
+            {5,0,0,7,0,6,0,0,9},
+            {0,0,0,0,0,0,6,2,0},
+            {4,0,9,0,0,1,0,0,6},
+            {0,0,0,0,0,0,5,0,0},
+            {0,5,0,9,0,0,0,3,2}
+        };
+        Integer[][] puzzle3 = {
+        };
         
         GameBoard<Integer> board = new IntegerBoard<>(puzzle);
         SudokuSolver solver = new SudokuSolver(board);
@@ -332,7 +300,7 @@ public boolean isValidPlacement(int x, int y, Integer value) {
         // System.out.println ;
 
         // Affichage de la solution
-        solver.printSolution();
+        solver.displayPossibleValues();
     }
     
 }

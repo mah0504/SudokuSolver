@@ -9,6 +9,19 @@ public class LinkedTree implements Tree<IntegerBoard> {
         this.root = new Node(initialBoard, null);
     }
 
+
+
+
+    // public Position<IntegerBoard> addRoot(IntegerBoard board) {
+    //     if (root != null) {
+    //         throw new IllegalStateException("La racine existe déjà !");
+    //     }
+    //     root = new Node(board, null);
+    //     return root;
+    // }
+
+    
+
     @Override
     public Position<IntegerBoard> root() {
         return root;
@@ -91,7 +104,7 @@ public class LinkedTree implements Tree<IntegerBoard> {
     } 
 
 
-    public Position addChild(Position parent, IntegerBoard board) {
+    public Position addChild( IntegerBoard board,Position parent) {
         
         Node parentNode = (Node) parent; // faux ? 
         Node childNode = new Node(board, parentNode);
@@ -102,19 +115,6 @@ public class LinkedTree implements Tree<IntegerBoard> {
 
 
     
-
-
-    // public void printChildren(Position<IntegerBoard> parent) {
-    //     Iterable<Position<IntegerBoard>> children = children(parent); // Récupère les enfants du nœud parent
-    //     if (!children.iterator().hasNext()) {
-    //         System.out.println("Aucun enfant pour ce nœud.");
-    //         return;
-    //     }
-    //     System.out.println("Enfants du nœud :");
-    //     for (Position<IntegerBoard> child : children) {
-    //         System.out.println(child.getElement()); // Imprime la grille associée à chaque enfant
-    //     }
-    // }
 
     
 

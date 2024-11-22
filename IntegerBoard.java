@@ -45,7 +45,7 @@ public class IntegerBoard<T> implements GameBoard<T>{
     }
 
     public IntegerBoard<T> copy() {
-        T[][] newPuzzle = (T[][]) new Object[getWidth()][getHeight()]; // pk 
+        T[][] newPuzzle = (T[][]) new Object[getWidth()][getHeight()]; // nvl instanciation :( 
 
     
         for (int i = 0; i < getWidth(); i++) {
