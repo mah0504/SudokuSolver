@@ -53,79 +53,58 @@ public class SudokuSolver implements GameSolver {
     }
 
     public boolean solve() {
-        // grille parent -> celle qu'on manip 
-        // a chaque increm de profondeur on update la grille parent 
-    
-
-        Queue<Node> queue = new LinkedList<>();
-        List<Integer> lst=  new ArrayList<>();
-
-        Node root = new Node(board, null);  
-        queue.add(root);  
-    
-        // while (!queue.isEmpty()) {
-            Node currentNode = queue.poll(); 
-            IntegerBoard currentBoard = currentNode.getElement();  // Récupère la grille du nœud actuel
-    
-            if (isComplete(currentBoard)) {
-                System.out.println("Solution...");
-                return true;
-            }
-            
-        // }
 
         if (!isValidSudoku()) {
-
             System.out.println("La grille de Sudoku initiale n'est pas valide...");
             return false;
-        }else {
-
-            // width puis height ?
-            for (int i = 0; i < board.getHeight(); i++) {
-                for (int j = 0; j < board.getWidth(); j++) {
-                    if (board.getCell(i, j).equals(0)) { 
-                        lst.clear();
-
-                        for(int l =1 ; l<10; l++){
-    
-                           if ( isValidPlacement(i,j,l) ) { 
-
-                            lst.add(l);
-                            IntegerBoard grilleEnfant = board.copy(); // nvl instnciation 
-
-                            grilleEnfant.setCell(i, j, l);  
-                            
-                            
-                            // bsn d'initialiser la nvl copy a chaque fois ? 
-                            
-                            // ref vers parent + la grille rep
-                            Node childNode = new Node(grilleEnfant, currentNode);
-
-                            dsTree.addChild(grilleEnfant, currentNode);  
-                            // ajout du noeud comme enfant du current 
-                            
-
-                            queue.add(childNode); // ajout noeud enfant 
-                            
-                           }   
-                    }
-                }
-            }
-            
-
         }
     
-        // queue is empty -> plus d'enfants a ajouter 
-        // passer au noeud de profobdeur n-1 suivant OU s'il y en a plus passer
-        // au neoud de pronfondeur n le + a gauche possible suivant 
-        // traverse preorder
-        
-    
-        System.out.println("Aucune solution trouvée.");
-        return false;
-    }
+        Queue<Node> queue = new LinkedList<>();  
+        Node root = new Node(board, null);  
+        queue.add(root);  
 
-}
+        
+        while (!queue.isEmpty()) {
+            Node currentNode = queue.poll();  
+            IntegerBoard currentBoard = currentNode.getElement();  
+
+
+            if (isComplete(currentBoard)) {
+                System.out.println("Solution trouvée !");
+                return true;  
+            }
+    
+            for (int i = 0; i < board.getHeight(); i++) {
+                for (int j = 0; j < board.getWidth(); j++) {
+
+                    if (currentBoard.getCell(i, j).equals(0)) {
+
+                        for (int val = 1; val <= 9; val++) {
+                            if (isValidPlacement(i, j, val)) {
+
+
+                                // optimiser la copie ??? 
+                                
+                                IntegerBoard newBoard = currentBoard.copy();  
+                                newBoard.setCell(i, j, val);  
+
+
+                                Node childNode = new Node(newBoard, currentNode);
+                                queue.add(childNode);  
+                            }
+                        }
+                        return false;  
+                    } 
+                    break;
+                }
+            }
+        } // queue pas empty 
+    
+        
+        System.out.println("Aucune solution trouvée.");
+        return false;  
+    }
+    
 
     private boolean isComplete(IntegerBoard board) {
         // Vérifiez si la grille est entièrement remplie et valide
@@ -140,6 +119,7 @@ public class SudokuSolver implements GameSolver {
     }
 
 
+    
 
     // marche correctement :)
 public boolean isValidPlacement(int x, int y, Integer value) {
@@ -180,7 +160,6 @@ public boolean isValidPlacement(int x, int y, Integer value) {
 
 
  
-
 
     public void displayPossibleValues() {
 
@@ -300,7 +279,8 @@ public boolean isValidPlacement(int x, int y, Integer value) {
         // System.out.println ;
 
         // Affichage de la solution
-        solver.displayPossibleValues();
+        solver.solve();
+
     }
     
 }

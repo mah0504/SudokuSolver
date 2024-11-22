@@ -36,4 +36,8 @@ public class Node implements Position<IntegerBoard> {
         children.add(child);
         child.setParent(this);
     }
+
+
+
+    
 }

@@ -13,7 +13,7 @@ public class IntegerBoard<T> implements GameBoard<T>{
     public IntegerBoard(T[][] puzzle){
         this.puzzle= puzzle;
     }
-    
+     
     @Override
     public T getCell(int x, int y) throws IndexOutOfBoundsException {
         return puzzle[x][y];
@@ -44,17 +44,26 @@ public class IntegerBoard<T> implements GameBoard<T>{
         }
     }
 
-    public IntegerBoard<T> copy() {
-        T[][] newPuzzle = (T[][]) new Object[getWidth()][getHeight()]; // nvl instanciation :( 
+    // public IntegerBoard<T> copy() {
+    //     T[][] newPuzzle = (T[][]) new Object[getWidth()][getHeight()]; // nvl instanciation :( 
 
     
-        for (int i = 0; i < getWidth(); i++) {
-            for (int j = 0; j < getHeight(); j++) {
-                newPuzzle[i][j] = this.getCell(i, j);
-            }
+    //     for (int i = 0; i < getWidth(); i++) {
+    //         for (int j = 0; j < getHeight(); j++) {
+    //             newPuzzle[i][j] = this.getCell(i, j);
+    //         }
+    //     }
+    //     return new IntegerBoard<>(newPuzzle);
+    // }
+    public IntegerBoard copy() {
+        int[][] newGrid = new int[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            System.arraycopy(grid[i], 0, newGrid[i], 0, grid[i].length);
         }
-        return new IntegerBoard<>(newPuzzle);
+        return new IntegerBoard(newGrid);
     }
+
+    
     
     
 
