@@ -55,14 +55,6 @@ public class IntegerBoard<T> implements GameBoard<T>{
     //     }
     //     return new IntegerBoard<>(newPuzzle);
     // }
-    public IntegerBoard copy() {
-        int[][] newGrid = new int[grid.length][grid[0].length];
-        for (int i = 0; i < grid.length; i++) {
-            System.arraycopy(grid[i], 0, newGrid[i], 0, grid[i].length);
-        }
-        return new IntegerBoard(newGrid);
-    }
-
     
     
     
