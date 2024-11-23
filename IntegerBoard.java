@@ -2,8 +2,6 @@ public class IntegerBoard<T> implements GameBoard<T>{
     T[][] puzzle; 
 
 
-
-
     public IntegerBoard(GameBoard<Integer> board) {
         int width = board.getWidth();
         int height = board.getHeight();
@@ -44,18 +42,15 @@ public class IntegerBoard<T> implements GameBoard<T>{
         }
     }
 
-    // public IntegerBoard<T> copy() {
-    //     T[][] newPuzzle = (T[][]) new Object[getWidth()][getHeight()]; // nvl instanciation :( 
-
-    
-    //     for (int i = 0; i < getWidth(); i++) {
-    //         for (int j = 0; j < getHeight(); j++) {
-    //             newPuzzle[i][j] = this.getCell(i, j);
-    //         }
-    //     }
-    //     return new IntegerBoard<>(newPuzzle);
-    // }
-    
+    public IntegerBoard<T> copy() {
+        T[][] newPuzzle = (T[][]) new Object[getWidth()][getHeight()];
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                newPuzzle[i][j] = this.getCell(i, j);
+            }
+        }
+        return new IntegerBoard<>(newPuzzle);
+    }
     
     
 

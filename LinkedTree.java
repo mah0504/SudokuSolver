@@ -115,7 +115,23 @@ public class LinkedTree implements Tree<IntegerBoard> {
 
 
     
+    public void removeChild(IntegerBoard board, Position<IntegerBoard> parent) {
+        Node parentNode = (Node) parent;  
+        List<Node> children = parentNode.getChildren();  
+    
 
+        for (Iterator<Node> iterator = children.iterator(); iterator.hasNext();) {
+            Node childNode = iterator.next();
+            if (childNode.getElement().equals(board)) {
+
+                iterator.remove();
+
+                childNode.setParent(null);
+                break;
+            }
+        }
+    }
+    
     
 
 
