@@ -29,24 +29,31 @@
     }
 
 
-    // public void testCase2() {
-	// System.out.println( "*** Test Case 2 ***" );
-    //     Integer[][] puzzle = {
-    //         {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    //         {4, 0, 3, 0, 0, 5, 0, 0, 0},
-    //         {0, 0, 0, 0, 3, 0, 0, 6, 0},
-    //         {0, 5, 0, 4, 6, 0, 0, 0, 0},
-    //         {0, 0, 0, 3, 0, 8, 0, 0, 0},
-    //         {0, 0, 0, 0, 9, 7, 0, 8, 0},
-    //         {0, 6, 0, 0, 1, 0, 0, 0, 0},
-    //         {0, 0, 0, 5, 0, 0, 2, 0, 9},
-    //         {0, 8, 0, 0, 0, 0, 0, 0, 0}
-    //     };
-    //     GameBoard<Integer> board = new IntegerBoard( puzzle );
-    //     GameSolver solver = new SudokuSolver( board );
-	// solver.solve();
-	// solver.printSolution();
-    // }
+
+
+
+
+
+
+
+    public void testCase2() {
+	System.out.println( "*** Test Case 2 ***" );
+        Integer[][] puzzle = {
+            {0, 0, 0, 0, 0, 0, 0, 1, 0},
+            {4, 0, 3, 0, 0, 5, 0, 0, 0},
+            {0, 0, 0, 0, 3, 0, 0, 6, 0},
+            {0, 5, 0, 4, 6, 0, 0, 0, 0},
+            {0, 0, 0, 3, 0, 8, 0, 0, 0},
+            {0, 0, 0, 0, 9, 7, 0, 8, 0},
+            {0, 6, 0, 0, 1, 0, 0, 0, 0},
+            {0, 0, 0, 5, 0, 0, 2, 0, 9},
+            {0, 8, 0, 0, 0, 0, 0, 0, 0}
+        };
+        GameBoard<Integer> board = new IntegerBoard( puzzle );
+        GameSolver solver = new SudokuSolver( board );
+	solver.solve();
+	solver.printSolution();
+    }
 
 
     // public void testCase3() {

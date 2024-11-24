@@ -17,6 +17,12 @@ public class ArrayStack<E> implements Stack<E> {
     public ArrayStack( int capacity ) {         // construct stack with given capacity
 	this.data = (E[]) new Object[capacity]; // safe cast; compiler may give warning
     }
+
+
+
+
+
+
     @Override
     public int size() { return( this.t + 1 ); } // return the number of elements in the stack
     @Override
